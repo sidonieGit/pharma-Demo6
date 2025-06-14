@@ -28,7 +28,7 @@ Ce dépôt contient la sixième itération du projet "Pharma". Cette version ét
 
 - Java (JDK 8 ou supérieur recommandé)
 - **Maven** (pour la gestion des dépendances et du build)
-- **Spring Framework** (en particulier `spring-context` et `spring-jdbc` pour l'IoC et l'intégration JDBC)
+- **Spring Framework** (en particulier `spring-context` pour l'IoC et l'intégration JDBC)
 - **HikariCP** (pool de connexions JDBC)
 - **MySQL Database** (le projet attend une base de données MySQL locale).
 - **MySQL Connector/J** (dépendance Maven pour le driver JDBC)
@@ -56,11 +56,11 @@ Pour tester cette application, vous devez configurer votre environnement :
         prix DOUBLE NOT NULL,
         description TEXT,
         image VARCHAR(255),
-        designationCategorie VARCHAR(255)
+        categorie VARCHAR(255)
     );
     ```
 
-4.  **Créer l'Utilisateur et lui donner les droits :** L'application utilise l'utilisateur `root` avec le mot de passe `wilchine2010` (selon votre XML). Assurez-vous que cet utilisateur existe et a les privilèges nécessaires sur la base `syspharma`. **Il est fortement recommandé de créer un utilisateur dédié avec des privilèges minimaux pour une application réelle, plutôt que d'utiliser `root`.**
+4.  **Créer l'Utilisateur et lui donner les droits :** L'application utilise l'utilisateur `YOUR_DB_USERNAME` avec le mot de passe `YOUR_DB_PASSWORD` (selon votre XML). Assurez-vous que cet utilisateur existe et a les privilèges nécessaires sur la base `syspharma`. **Il est fortement recommandé de créer un utilisateur dédié avec des privilèges minimaux pour une application réelle, plutôt que d'utiliser `root`.**
     _(Exemple pour un utilisateur dédié, si vous ne voulez pas utiliser root:)_
 
     ```sql
@@ -79,7 +79,7 @@ Pour tester cette application, vous devez configurer votre environnement :
 6.  **Cloner le dépôt :**
 
     ```bash
-    git clone [https://github.com/votre_utilisateur/Pharma6.git](https://github.com/votre_utilisateur/Pharma6.git)
+    git clone https://github.com/sidonieGit/pharma-Demo6.git
     cd Pharma6
     ```
 
@@ -103,9 +103,9 @@ Pour tester cette application, vous devez configurer votre environnement :
 
 ## Prochaines Étapes Possibles
 
-- **Externalisation des propriétés de connexion DB** : La prochaine étape cruciale est de déplacer les informations sensibles (`jdbcUrl`, `username`, `password`) de `applicationContext.xml` vers un fichier de propriétés externe (ex: `datasource.properties`), qui sera également ignoré par Git. Ces propriétés seront ensuite injectées dans le bean `dataSourceSk` via Spring.
-- Utilisation de `Spring JDBC Template` ou de Spring Data JPA pour simplifier davantage les opérations DAO.
-- Implémentation de transactions Spring pour assurer l'intégrité des données.
+- **Externalisation des propriétés de connexion DB** : La prochaine étape cruciale est de :
+- déplacer les informations sensibles (`jdbcUrl`, `username`, `password`) de `applicationContext.xml` vers un fichier de propriétés externe (ex: `datasource.properties`), qui sera également ignoré par Git. Ces propriétés seront ensuite injectées dans le bean `dataSourceSk` via Spring.
+- Spring charge ces propriétés et les utilise pour configurer le pool de connexions HikariCP. La configuration des beans reste en XML et l'application interagit avec une base de données MySQL réelle.
 
 ---
 
